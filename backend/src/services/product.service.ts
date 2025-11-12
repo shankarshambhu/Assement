@@ -40,7 +40,7 @@ export const getAllProductService = async () => {
 
 export const getProductById = async (id: string) => {
     try {
-        return await Product.findOne({ where: { id } })
+        return await Product.findOne({ where: { id },relations:['purchase'] })
 
     } catch (error) {
         throw error
@@ -63,6 +63,18 @@ export const updateProductService = async (payload: Partial<Product>, product: P
 
     } catch (error) {
         throw error
+    }
+
+}
+
+export const deleteProductService = async (product: Product) => {
+    try {
+        return await product.remove();
+
+
+    } catch (error) {
+        throw error
+
     }
 
 }

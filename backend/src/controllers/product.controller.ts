@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import { createProductService, getAllProductService, getProductById, getProductByName, updateProductService } from "../services/product.service";
+import { createProductService, deleteProductService, getAllProductService, getProductById, getProductByName, updateProductService } from "../services/product.service";
 import { ApiError } from "../utils/api.Error";
 import { Product } from "../entities/Product";
 
@@ -51,6 +51,46 @@ export const updateProduct = async (req: Request, res: Response, next: NextFunct
             success: true,
             message: "updated product",
             updatedProduct
+        })
+
+    } catch (error) {
+        next(error)
+
+    }
+
+}
+
+export const deleteProduct = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const { id } = req.params;
+        const product = await getProductById(id);
+        if (!product) {
+            throw new ApiError("Product not found", 404);
+        }
+        const deletedProduct = await deleteProductService(product);
+        res.status(200).json({
+            success: true,
+            message: "Product deleted successfully",
+            deletedProduct
+        })
+
+    } catch (error) {
+        next(error)
+
+    }
+}
+
+export const getProduct = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const { id } = req.params;
+        const product = await getProductById(id);
+        if (!product) {
+            throw new ApiError("Product not found", 404);
+        }
+        res.status(200).json({
+            success: true,
+            message: "fetched",
+            product
         })
 
     } catch (error) {

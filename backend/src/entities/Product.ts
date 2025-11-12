@@ -1,27 +1,41 @@
-import { BaseEntity, Column, CreateDateColumn, Entity, Generated, PrimaryGeneratedColumn } from "typeorm";
+import { BaseEntity, Column, CreateDateColumn, Entity, Generated, JoinColumn, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Purchase } from "./Purchase";
+import { Sales } from "./Sales";
+import { Bill } from "./Bill";
 
 @Entity()
-export class Product extends BaseEntity{
+export class Product extends BaseEntity {
     @PrimaryGeneratedColumn("uuid")
-    id:string
+    id: string
 
     @Column()
-    name:string
+    name: string
 
     @Column()
     @Generated("uuid")
-    sku:string
+    sku: string
 
     @Column()
-    price:number
+    price: number
 
     @Column()
-    currentStock:number
+    currentStock: number
 
     @Column()
-    taxPercentage:number
+    taxPercentage: number
 
     @CreateDateColumn()
-    createdAt:Date
+    createdAt: Date
+
+    @OneToMany(() => Purchase, (purchase) => purchase.product)
+    purchase: Purchase[];
+
+
+    @OneToOne(() => Sales, (sale) => sale.product)
+    sale: Sales;
+
+    @OneToMany(() => Bill, (bill) => bill.product)
+    bill: Bill[];
+
 
 }
