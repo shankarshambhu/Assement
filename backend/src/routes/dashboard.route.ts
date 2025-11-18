@@ -1,11 +1,11 @@
 import express from 'express'
 import { createSale, getBill } from '../controllers/sale.controller';
+import { totalItems } from '../controllers/dashboard.controller';
 
 
 const router = express.Router();
 
-router.post("/createsale/",createSale);
-router.get("/bill/:id",getBill)
+router.get("/totalitems/",totalItems);
 
 
 

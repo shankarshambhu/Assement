@@ -6,6 +6,7 @@ import { Product } from "../entities/Product";
 import { Purchase } from "../entities/Purchase";
 import { Sales } from "../entities/Sales";
 import { Bill } from "../entities/Bill";
+import { SaleItem } from "../entities/SaleItem";
 dotenv.config();
 
 
@@ -19,6 +20,6 @@ export const AppDataSource = new DataSource({
     database: process.env.DB_NAME,
     synchronize: true,
     logging: false,
-    entities:[Product,Purchase,Sales,Bill]
+    entities:[Product,Purchase,Sales,Bill,SaleItem]
 
 })

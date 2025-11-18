@@ -1,7 +1,10 @@
 
 function Dashboard() {
   return (
-    <>Dashboard</>
+    <>
+    
+    
+    </>
   )
 }
 

@@ -1,12 +1,13 @@
-import { BaseEntity, Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { BaseEntity, Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { Product } from "./Product";
+import { SaleItem } from "./SaleItem";
 
 @Entity()
 export class Purchase extends BaseEntity {
     @PrimaryGeneratedColumn("uuid")
     id: string
 
-    
+
     @Column()
     quantity: number
 
@@ -27,5 +28,10 @@ export class Purchase extends BaseEntity {
     })
     @JoinColumn()
     product: Product;
+
+
+
+    @OneToMany(() => SaleItem, (item) => item.purchase)
+    item: SaleItem[];
 
 }

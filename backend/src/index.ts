@@ -7,6 +7,7 @@ import helmet from 'helmet';
 import saleRoutes from './routes/sale.route'
 import { errorHandler } from './middlewares/error.handler';
 import cors from 'cors'
+import dashboardRoutes  from './routes/dashboard.route'
 
 const app = express();
 app.use(helmet())
@@ -21,7 +22,10 @@ const PORT = process.env.PORT || 500;
 
 app.use("/product", productRoutes);
 app.use("/purchase", purchaseRoutes);
-app.use("/sale",saleRoutes)
+app.use("/sale",saleRoutes);
+app.use("/dashboard",dashboardRoutes);
+
+
 
 
 app.use(errorHandler)

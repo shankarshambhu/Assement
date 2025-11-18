@@ -28,11 +28,12 @@ function AddProduct() {
             if (res.data.success) {
                 toast.success(res.data.message);
                 setForm({
-                    name: "",
+                    name: "",   
                     price: 0,
                     currentStock: 0,
                     taxPercentage: 0
                 });
+    
             }
         } catch (err: any) {
             const message = err?.data?.message || "Error creating job";
