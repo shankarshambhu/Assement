@@ -31,9 +31,6 @@ export class Product extends BaseEntity {
     purchase: Purchase[];
 
 
-    @OneToOne(() => Sales, (sale) => sale.product)
-    sale: Sales;
-
     @OneToMany(() => Bill, (bill) => bill.product)
     bill: Bill[];
 

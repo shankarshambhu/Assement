@@ -9,7 +9,6 @@ function Product() {
   const [open, setOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState<any>(null);
   const [formData, setFormData] = useState({ name: "", price: 0, currentStock: 0, taxPercentage: 0 });
-  const [status, setStatus] = useState(false);
   const [purchase, setPurchase] = useState(false);
   const [purchaseData, setpurchaseData] = useState({ quantity: 0 });
 
@@ -37,7 +36,8 @@ function Product() {
       if (res.data.success) {
         toast.success("Product updated!");
         setOpen(false);
-        setStatus(true)
+        fetchProducts();
+
       }
 
     } catch (err: any) {
@@ -55,11 +55,13 @@ function Product() {
       const { quantity } = purchaseData;
       const res = await purchaseProduct(selectedProduct.id, quantity);
       if (res.data.success) {
-        toast.success(res.data.message)
+        toast.success(res.data.message);
+        fetchProducts();
+
         setPurchase(false)
       }
 
-    } catch (err:any) {
+    } catch (err: any) {
       const message = err?.data?.message || "Error creating job";
 
       toast.error(message)
@@ -94,7 +96,7 @@ function Product() {
 
   useEffect(() => {
     fetchProducts();
-  }, [status]);
+  }, []);
 
   return (
     <>

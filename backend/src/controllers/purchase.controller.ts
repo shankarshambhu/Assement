@@ -21,6 +21,8 @@ export const createPurchase = async (req: Request, res: Response, next: NextFunc
         const purchaseFound = await getPurchaseByProductID(id);
         if (!purchaseFound) {
             const purchasePrice = product.price * quantity
+            product.currentStock -= quantity;
+            await product.save();
             const createdPurchase = await createPurchaseService(quantity, purchasePrice, product);
             res.status(200).json({
                 success: true,
@@ -33,6 +35,8 @@ export const createPurchase = async (req: Request, res: Response, next: NextFunc
             const newQuantity = Number(purchaseFound.quantity) + Number(quantity);
             const newPurchasePrice = product.price * newQuantity;
             const updatedPurchase = await purchaseAgain(newQuantity, newPurchasePrice, purchaseFound);
+            product.currentStock -= quantity;
+            await product.save();
             res.status(200).json({
                 success: true,
                 message: "Purchase updated",

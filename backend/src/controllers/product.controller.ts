@@ -2,6 +2,7 @@ import { NextFunction, Request, Response } from "express";
 import { createProductService, deleteProductService, getAllProductService, getProductById, getProductByName, updateProductService } from "../services/product.service";
 import { ApiError } from "../utils/api.Error";
 import { Product } from "../entities/Product";
+import { LessThan } from "typeorm";
 
 export const createProduct = async (req: Request, res: Response, next: NextFunction) => {
     try {
@@ -96,6 +97,25 @@ export const getProduct = async (req: Request, res: Response, next: NextFunction
     } catch (error) {
         next(error)
 
+    }
+
+}
+
+
+export const getShortProduct = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const products = await Product.find({ where: { currentStock: LessThan(10) } });
+        if (!products) {
+            throw new ApiError("No product has less than 10")
+        }
+        res.status(200).json({
+            success: true,
+            message: "successfull",
+            products
+        })
+
+    } catch (error) {
+        next(error)
     }
 
 }

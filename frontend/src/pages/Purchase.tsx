@@ -129,6 +129,7 @@ function PurchaseCard() {
                     Cart
                 </Typography>
 
+
                 <Grid container spacing={2}>
                     {cart.map((c: any) => (
                         <Grid
@@ -154,15 +155,26 @@ function PurchaseCard() {
                         </Grid>
                     ))}
                 </Grid>
-                <Box display={'flex'} justifyContent={'flex-end'}>
-                    <Button sx={{ mt: '5%', mr: '5%' }} onClick={handlePurchase} size="small" variant="contained"> PURCHASE</Button>
+                {cart.length !== 0 &&(
+                    
+                    <Box display={'flex'} justifyContent={'flex-end'}>
+                        <Button sx={{ mt: '5%', mr: '5%' }} onClick={handlePurchase} size="small" variant="contained"> PURCHASE</Button>
+                    </Box>
+
+                )}
+
+
+            </Box>
+
+            {total !== 0 && (
+
+                <Box display={'flex'} justifyContent={'center'} mt={'5%'} >
+                    <Typography variant="h5">Total is {total}</Typography>
                 </Box>
+            )}
 
-            </Box>
 
-            <Box>
-                <Typography>Total is {total}</Typography>
-            </Box>
+
 
         </>
     )
